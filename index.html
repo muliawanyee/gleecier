@@ -559,18 +559,6 @@
           <span class="history-status success">Success</span>
         </div>
       </div>
-      
-      <!-- Item 3: Example pending deposit -->
-      <div class="history-item">
-        <div class="history-item-left">
-          <span class="history-date">Oct 20, 09:00 AM</span>
-          <span class="history-tx" title="Click to copy TX Hash" onclick="copyTx('2c5b7a1f')">TX: 2c5b...7a1f 📋</span>
-        </div>
-        <div class="history-item-right">
-          <div class="history-amount">+50.00 USDT</div>
-          <span class="history-status pending">Pending</span>
-        </div>
-      </div>
     </div>
 
     <button class="popup-btn" style="margin-top: 20px;" onclick="closeDepositHistory()">
@@ -992,7 +980,6 @@
   function openDepositHistory() {
     const overlay = document.getElementById('historyOverlay');
     overlay.style.display = 'flex';
-    // Trigger reflow for animation
     void overlay.offsetWidth;
     overlay.classList.remove('closing');
   }
