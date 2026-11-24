@@ -211,6 +211,22 @@
   .popup-btn { width: 100%; padding: 12px 20px; background: var(--accent); color: #000; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
   .popup-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
 
+  /* ===== DEPOSIT HISTORY STYLES ===== */
+  .history-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; padding-right: 4px; }
+  .history-list::-webkit-scrollbar { width: 4px; }
+  .history-list::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
+  .history-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; transition: all 0.15s; }
+  .history-item:hover { border-color: var(--border-light); background: var(--bg-hover); }
+  .history-item-left { display: flex; flex-direction: column; gap: 4px; flex: 1; text-align: left; }
+  .history-date { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  .history-tx { font-size: 11px; color: var(--text-secondary); font-family: 'Courier New', monospace; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .history-tx:hover { color: var(--accent); }
+  .history-item-right { text-align: right; flex-shrink: 0; }
+  .history-amount { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+  .history-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .history-status.success { background: rgba(34, 197, 94, 0.15); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+  .history-status.pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+
   /* ===== NOTIFICATION BANNER ===== */
   .notification-banner { background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%); border-bottom: 2px solid var(--warning); padding: 12px 20px; display: flex; align-items: center; justify-content: center; gap: 12px; position: relative; animation: slideDown 0.3s ease-out; }
   @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -511,6 +527,58 @@
   </div>
 </div>
 
+<!-- ===== POPUP MODAL 2 - Deposit History ===== -->
+<div class="popup-overlay" id="historyOverlay" style="display: none;">
+  <div class="popup-modal">
+    <button class="popup-close" onclick="closeDepositHistory()" title="Close">×</button>
+    <div class="popup-icon-wrapper" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(20, 184, 166, 0.15)); border-color: var(--green);">📜</div>
+    <h2 class="popup-title">Deposit History</h2>
+    <p class="popup-message">Recent USDT deposits to your Pro Bundler account.</p>
+    
+    <div class="history-list">
+      <!-- Item 1: The +103 USDT deposit -->
+      <div class="history-item">
+        <div class="history-item-left">
+          <span class="history-date">Today, 10:24 AM</span>
+          <span class="history-tx" title="Click to copy TX Hash" onclick="copyTx('8x9a3b2c')">TX: 8x9a...3b2c 📋</span>
+        </div>
+        <div class="history-item-right">
+          <div class="history-amount">+103.00 USDT</div>
+          <span class="history-status success">Success</span>
+        </div>
+      </div>
+      
+      <!-- Item 2: The previous 338.8 USDT deposit -->
+      <div class="history-item">
+        <div class="history-item-left">
+          <span class="history-date">Yesterday, 04:15 PM</span>
+          <span class="history-tx" title="Click to copy TX Hash" onclick="copyTx('4f1d9e8a')">TX: 4f1d...9e8a 📋</span>
+        </div>
+        <div class="history-item-right">
+          <div class="history-amount">+338.80 USDT</div>
+          <span class="history-status success">Success</span>
+        </div>
+      </div>
+      
+      <!-- Item 3: Example pending deposit -->
+      <div class="history-item">
+        <div class="history-item-left">
+          <span class="history-date">Oct 20, 09:00 AM</span>
+          <span class="history-tx" title="Click to copy TX Hash" onclick="copyTx('2c5b7a1f')">TX: 2c5b...7a1f 📋</span>
+        </div>
+        <div class="history-item-right">
+          <div class="history-amount">+50.00 USDT</div>
+          <span class="history-status pending">Pending</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="popup-btn" style="margin-top: 20px;" onclick="closeDepositHistory()">
+      Close
+    </button>
+  </div>
+</div>
+
 <!-- Top Bar -->
 <div class="top-bar">
   <div class="top-bar-left">
@@ -559,9 +627,12 @@
           <div class="balance-value">441.8 <span class="unit">USDT</span></div>
         </div>
         <div class="balance-actions">
-          <button class="balance-action-btn" title="More options">≡</button>
+          <button class="balance-action-btn" title="Deposit History" onclick="openDepositHistory()">📜</button>
         </div>
       </div>
+      <button class="btn btn-ghost" style="width: 100%; justify-content: center; margin-top: 8px; font-size: 11px; padding: 6px;" onclick="openDepositHistory()">
+        View Deposit History
+      </button>
     </div>
 
     <div class="stats-row">
@@ -916,6 +987,34 @@
   document.getElementById('popupOverlay').addEventListener('click', function(e) {
     if (e.target === this) closePopup();
   });
+
+  // ===== DEPOSIT HISTORY FUNCTIONS =====
+  function openDepositHistory() {
+    const overlay = document.getElementById('historyOverlay');
+    overlay.style.display = 'flex';
+    // Trigger reflow for animation
+    void overlay.offsetWidth;
+    overlay.classList.remove('closing');
+  }
+
+  function closeDepositHistory() {
+    const overlay = document.getElementById('historyOverlay');
+    overlay.classList.add('closing');
+    setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  }
+
+  document.getElementById('historyOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeDepositHistory();
+  });
+
+  function copyTx(hash) {
+    navigator.clipboard.writeText(hash).then(() => {
+      alert('TX Hash copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+  // =====================================
 
   function closeNotification() {
     const banner = document.getElementById('notificationBanner');
