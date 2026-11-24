@@ -211,7 +211,7 @@
   .popup-btn { width: 100%; padding: 12px 20px; background: var(--accent); color: #000; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
   .popup-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
 
-  /* ===== DEPOSIT HISTORY STYLES ===== */
+  /* ===== LOCK LP HISTORY STYLES ===== */
   .history-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; padding-right: 4px; }
   .history-list::-webkit-scrollbar { width: 4px; }
   .history-list::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 2px; }
@@ -528,13 +528,13 @@
   </div>
 </div>
 
-<!-- ===== POPUP MODAL 2 - Deposit History ===== -->
-<div class="popup-overlay" id="historyOverlay" style="display: none;">
+<!-- ===== POPUP MODAL 2 - Lock Liquidity Provider ===== -->
+<div class="popup-overlay" id="lockLpOverlay" style="display: none;">
   <div class="popup-modal">
-    <button class="popup-close" onclick="closeDepositHistory()" title="Close">×</button>
-    <div class="popup-icon-wrapper" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(20, 184, 166, 0.15)); border-color: var(--green);">📜</div>
-    <h2 class="popup-title">Deposit History</h2>
-    <p class="popup-message">Recent USDT deposits to your Pro Bundler account.</p>
+    <button class="popup-close" onclick="closeLockLp()" title="Close">×</button>
+    <div class="popup-icon-wrapper" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(20, 184, 166, 0.15)); border-color: var(--green);">🔒</div>
+    <h2 class="popup-title">Lock Liquidity Provider</h2>
+    <p class="popup-message">History of locked liquidity provider (LP) transactions for your Pro Bundler account.</p>
     
     <div class="history-list">
       <!-- Item 1: The +103 USDT deposit -->
@@ -562,7 +562,7 @@
       </div>
     </div>
 
-    <button class="popup-btn" style="margin-top: 20px;" onclick="closeDepositHistory()">
+    <button class="popup-btn" style="margin-top: 20px;" onclick="closeLockLp()">
       Close
     </button>
   </div>
@@ -616,11 +616,11 @@
           <div class="balance-value">441.8 <span class="unit">USDT</span></div>
         </div>
         <div class="balance-actions">
-          <button class="balance-action-btn" title="Deposit History" onclick="openDepositHistory()">📜</button>
+          <button class="balance-action-btn" title="Lock Liquidity Provider" onclick="openLockLp()">🔒</button>
         </div>
       </div>
-      <button class="btn btn-ghost" style="width: 100%; justify-content: center; margin-top: 8px; font-size: 11px; padding: 6px;" onclick="openDepositHistory()">
-        View Deposit History
+      <button class="btn btn-ghost" style="width: 100%; justify-content: center; margin-top: 8px; font-size: 11px; padding: 6px;" onclick="openLockLp()">
+        View Lock Liquidity Provider
       </button>
     </div>
 
@@ -977,22 +977,22 @@
     if (e.target === this) closePopup();
   });
 
-  // ===== DEPOSIT HISTORY FUNCTIONS =====
-  function openDepositHistory() {
-    const overlay = document.getElementById('historyOverlay');
+  // ===== LOCK LIQUIDITY PROVIDER FUNCTIONS =====
+  function openLockLp() {
+    const overlay = document.getElementById('lockLpOverlay');
     overlay.style.display = 'flex';
     void overlay.offsetWidth;
     overlay.classList.remove('closing');
   }
 
-  function closeDepositHistory() {
-    const overlay = document.getElementById('historyOverlay');
+  function closeLockLp() {
+    const overlay = document.getElementById('lockLpOverlay');
     overlay.classList.add('closing');
     setTimeout(() => { overlay.style.display = 'none'; }, 300);
   }
 
-  document.getElementById('historyOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeDepositHistory();
+  document.getElementById('lockLpOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeLockLp();
   });
 
   function copyTx(hash) {
