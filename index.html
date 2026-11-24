@@ -221,6 +221,7 @@
   .history-date { font-size: 11px; color: var(--text-muted); font-weight: 500; }
   .history-tx { font-size: 11px; color: var(--text-secondary); font-family: 'Courier New', monospace; cursor: pointer; display: flex; align-items: center; gap: 4px; }
   .history-tx:hover { color: var(--accent); }
+  .history-note { font-size: 10px; color: var(--info); font-weight: 600; display: flex; align-items: center; gap: 4px; margin-top: 2px; padding: 3px 8px; background: var(--info-light); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 4px; width: fit-content; }
   .history-item-right { text-align: right; flex-shrink: 0; }
   .history-amount { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
   .history-status { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -548,11 +549,11 @@
         </div>
       </div>
       
-      <!-- Item 2: The previous 338.8 USDT deposit -->
+      <!-- Item 2: The 338.8 USDT conversion from SOL (no date, with note) -->
       <div class="history-item">
         <div class="history-item-left">
-          <span class="history-date">Yesterday, 04:15 PM</span>
           <span class="history-tx" title="Click to copy TX Hash" onclick="copyTx('4f1d9e8a')">TX: 4f1d...9e8a 📋</span>
+          <span class="history-note">🔄 Converted from SOL to USDT</span>
         </div>
         <div class="history-item-right">
           <div class="history-amount">+338.80 USDT</div>
